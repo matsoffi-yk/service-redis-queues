@@ -3,7 +3,8 @@ import Queue, { Job, QueueOptions } from 'bull'
 // -------------------- QUEUES
 // กำหนดค่า Redis และ QueueOptions
 const queueOptions: QueueOptions = {
-    redis: { host: '127.0.0.1', port: 6379 }
+    redis: { host: '127.0.0.1', port: 6379 },
+    defaultJobOptions: { removeOnComplete: true, removeOnFail: true, attempts: 3 },
 }
 
 // สร้างคิว testQueue
