@@ -1,5 +1,5 @@
 import express, { Application, NextFunction, Request, Response } from 'express'
-import queueController from './queue'
+import queue from './queue'
 
 // -------------------- EXPRESS
 const app: Application = express()
@@ -11,7 +11,7 @@ app.use(express.json())
 const testQueueService = () => async (req: Request, res: Response, next: NextFunction) => {
     try {
         const text = req.body.text
-        await queueController.testQueue.add({ text }) // เพิ่ม job เข้าคิว
+        await queue.testQueue.add({ text }) // เพิ่ม job เข้าคิว
         res.locals.text = text
         next()
     } catch (err) {
@@ -34,7 +34,7 @@ app.get('/',
 // เส้นทางสำหรับดึงข้อมูล job จากคิว
 app.get('/jobs', async (req: Request, res: Response) => {
     try {
-        const jobs = await queueController.testQueue.getJobs() // ดึงข้อมูล job จากคิว
+        const jobs = await queue.testQueue.getJobs() // ดึงข้อมูล job จากคิว
         res.json(jobs)
     } catch (err) {
         console.log(err)
@@ -46,5 +46,5 @@ app.get('/jobs', async (req: Request, res: Response) => {
 const PORT = 3001
 app.listen(PORT, () => {
     console.info(`Server is running on port ${PORT}`)
-    queueController.workerQueue() // เรียกใช้ workerQueue เมื่อ server เริ่มต้น
+    queue.workerQueue() // เรียกใช้ workerQueue เมื่อ server เริ่มต้น
 })
