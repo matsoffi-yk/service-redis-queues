@@ -1,0 +1,7 @@
+{
+    "watch": ["*"],
+    "ext": "ts,json,js",
+    "ignore": ["node_modules"],
+    "exec": "ts-node ./index.ts",
+    "legacyWatch": true
+}
