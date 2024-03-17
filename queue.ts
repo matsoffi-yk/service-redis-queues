@@ -4,7 +4,11 @@ import Queue, { Job, QueueOptions } from 'bull'
 // กำหนดค่า Redis และ QueueOptions
 const queueOptions: QueueOptions = {
     redis: { host: '127.0.0.1', port: 6379 },
-    defaultJobOptions: { removeOnComplete: true, removeOnFail: true, attempts: 3 },
+    defaultJobOptions: {
+        removeOnComplete: true,  // ลบ job ออกจากคิวเมื่อ job สำเร็จ
+        removeOnFail: true,      // ลบ job ออกจากคิวเมื่อ job ล้มเหลว
+        attempts: 3              // จำนวนครั้งที่จะพยายามทำงานอีกครั้งหลังจากล้มเหลว
+    }
 }
 
 // สร้างคิว testQueue
